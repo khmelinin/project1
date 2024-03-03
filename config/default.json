@@ -1,4 +1,5 @@
 {
   "port": 5000,
-  "mongoUri": ""
+  "jwtSecret": "khmelinin super secret key",
+  "mongoUri": "mongodb://localhost:27017"
 }
