@@ -1,26 +1,33 @@
 import React from 'react'
-import {Routes as Switch, Route, useNavigate as Redirect} from 'react-router-dom'
+import {Route, useNavigate as Redirect, BrowserRouter as Router, Routes} from 'react-router-dom'
 import {AttestationPage} from './pages/AttestationPage'
 import {CoursePage} from "./pages/CoursePage";
 import {CourseDetailPage} from "./pages/CourseDetailPage";
 import {AuthPage} from "./pages/AuthPage";
+import {InformationPage} from "./pages/InformationPage";
 export  const useRoutes = (isAuthenticated) => {
     if(isAuthenticated){
         return (
-            <Switch location={"/course"}>
-                <Route path="/attestation" exact element={<AttestationPage/>}>
-                </Route>
-                <Route path="/course" exact element={<CoursePage/>}>
-                </Route>
-                <Route path="/detail/:id" element={<CourseDetailPage/>}>
-                </Route>
-            </Switch>
+            // <Switch location={"/course"}>
+            //     <Route path="/attestation" element={<AttestationPage/>}>
+            //     </Route>
+            //     <Route path="/course" element={<CoursePage/>}>
+            //     </Route>
+            //     <Route path="/information" element={<InformationPage />}>
+            //     </Route>
+            //
+            // </Switch>
+                <Routes>
+                    <Route path="/attestation" element={<AttestationPage/>}></Route>
+                    <Route path="/course" element={<CoursePage/>}></Route>
+                    <Route path="/information" element={<InformationPage/>}></Route>
+                </Routes>
         )
     }
     return(
-        <Switch location={"/"}>
-            <Route path="/" exact element={<AuthPage/>}>
-            </Route>
-        </Switch>
+            <Routes location={"/"}>
+                <Route path="/" element={<AuthPage/>}>
+                </Route>
+            </Routes>
     )
 }
