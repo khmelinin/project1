@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, Routes, Route } from "react-router-dom"
+import { Link, Routes, Route, NavLink, useNavigate } from "react-router-dom"
 import 'materialize-css';
 import { LessonPage } from './LessonPage'
 
@@ -28,7 +28,9 @@ export const CoursePage = () => {
 
             </p>
             <div>
-                <button className="field button-field" style={{marginRight: 10}}>Курс 1</button>
+                <button className="field button-field" style={{marginRight: 10}}>
+                    <li><NavLink to="/course1">Курс 1</NavLink></li>
+                </button>
             </div>
             <p>
 

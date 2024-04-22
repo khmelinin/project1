@@ -1,47 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Link, Routes, Route } from "react-router-dom"
+import { Link, Routes, Route, useParams } from "react-router-dom"
 import 'materialize-css';
 import { InformationPage } from './InformationPage'
+import { useHttp } from '../hooks/http.hook';
+import { LessonCard } from '../components/LessonCard';
+import { Loader } from '../components/Loader';
 
 export const LessonPage = () => {
-    const [lesson, setLesson] = useState([]);
+    const {request, loading} = useHttp();
+    const [lesson, setLesson] = useState(null);
+    const lessonId = useParams().id;
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://localhost:3000/api/lesson');
-                setLesson(response.data);
-            } catch (error) {
-                console.error('Error fetching data: ', error);
-            }
-        };
+    const getLesson = useCallback(async()=>{
+        try{
+            const fetched = await request(`/api/lesson/${lessonId}`, 'GET', null)
+            setLesson(fetched)
+        } catch(e){}
+    }, [lessonId, request])
 
-        fetchData();
-    }, []);
+    useEffect(()=>{
+        getLesson()
+    }, [getLesson])
 
-    let my_href="/lesson"
+    if(loading){
+        return <Loader/>
+    }
+    console.log(lesson)
 
-    return (
-        <div class="ag-format-container">
-            <div class="ag-courses_box">
-
-                {lesson.map((item, index) => (
-
-                    <div class="ag-courses_item">
-                        <p style={{display: 'none'}}>{index === 0 ? my_href = "/information" : my_href = "/lesson"}</p>
-                        <a href={my_href} class="ag-courses-item_link">
-                            <div class="ag-courses-item_bg"></div>
-
-                            <div class="ag-courses-item_title">
-                                {item.theme}
-                            </div>
-
-                        </a>
-                    </div>
-                ))}
-
-            </div>
-        </div>
+    return(
+        <>
+            {!loading && lesson && <LessonCard lesson={lesson}/>}
+        </>
     )
 }
