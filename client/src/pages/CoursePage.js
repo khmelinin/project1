@@ -10,8 +10,8 @@ export const CoursePage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/courses');
-                setCourse(response.data);
+                //const response = await axios.get('http://localhost:3000/api/courses');
+                //setCourse(response.data);
             } catch (error) {
                 console.error('Error fetching data: ', error);
             }
@@ -36,13 +36,17 @@ export const CoursePage = () => {
 
             </p>
             <div>
-                <button className="field button-field" style={{marginRight: 10}}>Курс 2</button>
+                <button className="field button-field" style={{marginRight: 10}}>
+                <li><NavLink to="/course1">Курс 2</NavLink></li>
+                </button>
             </div>
             <p>
 
             </p>
             <div>
-                <button className="field button-field" style={{marginRight: 10}}>Курс 3</button>
+                <button className="field button-field" style={{marginRight: 10}}>
+                <li><NavLink to="/course1">Курс 3</NavLink></li>
+                </button>
             </div>
         </div>
         // <div class="ag-format-container">
